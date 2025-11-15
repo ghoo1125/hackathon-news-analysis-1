@@ -142,7 +142,7 @@
                 </div>
 
                 <div class="mt-6 bg-purple-50 rounded-lg p-6">
-                    <button class="text-purple-700 font-medium flex items-center hover:text-purple-900 transition">
+                    <button onclick="openStakeholderModal()" class="text-purple-700 font-medium flex items-center hover:text-purple-900 transition">
                         <span class="mr-2">詳細分析</span>
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -197,7 +197,7 @@
                         <div class="border-l-4 border-blue-400 pl-4 py-2">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="font-bold text-lg text-blue-700">中立客觀報導</h3>
-                                <span class="text-sm text-gray-600">7 篇相關報導 →</span>
+                                <button onclick="openMediaModal('neutral')" class="text-sm text-gray-600 hover:text-blue-700 transition">7 篇相關報導 →</button>
                             </div>
                             <p class="text-gray-700 text-sm">客觀陳述事件進展，報導包括災情統計、疏散過程、堰塞湖監測數據等事實資訊。媒體來源：少年報導者、讀+ READr、新頭殼、太報等。</p>
                         </div>
@@ -205,7 +205,7 @@
                         <div class="border-l-4 border-purple-500 pl-4 py-2">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="font-bold text-lg text-purple-700">支持專家意見</h3>
-                                <span class="text-sm text-gray-600">6 篇相關報導 →</span>
+                                <button onclick="openMediaModal('expert')" class="text-sm text-gray-600 hover:text-purple-700 transition">6 篇相關報導 →</button>
                             </div>
                             <p class="text-gray-700 text-sm">強調李鴻源等水利專家的專業判斷，支持「不爆破」方案。報導內容聚焦於專家警告、科學監測和專業評估的重要性。媒體來源：信傳媒、風傳媒、鏡新聞等。</p>
                         </div>
@@ -213,7 +213,7 @@
                         <div class="border-l-4 border-orange-400 pl-4 py-2">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="font-bold text-lg text-orange-700">質疑中央作為</h3>
-                                <span class="text-sm text-gray-600">4 篇相關報導 →</span>
+                                <button onclick="openMediaModal('critical')" class="text-sm text-gray-600 hover:text-orange-700 transition">4 篇相關報導 →</button>
                             </div>
                             <p class="text-gray-700 text-sm">報導傅崐萁等立委質疑中央未採爆破方案，探討政府應變是否足夠。部分報導提及花蓮縣長致歉，反映地方與中央的立場差異。</p>
                         </div>
@@ -221,7 +221,7 @@
                         <div class="border-l-4 border-green-500 pl-4 py-2">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="font-bold text-lg text-green-700">關注災後重建</h3>
-                                <span class="text-sm text-gray-600">3 篇相關報導 →</span>
+                                <button onclick="openMediaModal('reconstruction')" class="text-sm text-gray-600 hover:text-green-700 transition">3 篇相關報導 →</button>
                             </div>
                             <p class="text-gray-700 text-sm">聚焦於200億重建預算、遷村規劃、志工救災等後續議題。報導「鏟子超人」和「挖土機超人」的故事，強調民間互助精神與志工安全問題。</p>
                         </div>
@@ -548,6 +548,575 @@
         </div>
     </main>
 
+    <!-- Media Stance Modal -->
+    <div id="mediaModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b">
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"/>
+                        <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"/>
+                    </svg>
+                    <h2 class="text-xl font-bold text-gray-800">媒體報導立場傾向</h2>
+                </div>
+                <button onclick="closeMediaModal()" class="text-gray-400 hover:text-gray-600 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Summary Section with Interactive Bar -->
+            <div class="p-6 bg-gray-50 border-b">
+                <p class="text-sm text-gray-600 mb-3">以下是根據至今日（2025年11月14日）的媒體報導，進行的立場傾向與數據化分析：</p>
+                <div class="flex h-16 rounded-full overflow-hidden shadow-lg cursor-pointer">
+                    <button onclick="switchMediaStance('neutral')" class="media-bar-tab bg-blue-400 hover:bg-blue-500 flex flex-col items-center justify-center text-white font-bold transition-all" style="width: 35%" data-stance="neutral">
+                        <span class="text-lg">35%</span>
+                        <span class="text-xs mt-1">中立客觀</span>
+                    </button>
+                    <button onclick="switchMediaStance('expert')" class="media-bar-tab bg-purple-500 hover:bg-purple-600 flex flex-col items-center justify-center text-white font-bold transition-all" style="width: 30%" data-stance="expert">
+                        <span class="text-lg">30%</span>
+                        <span class="text-xs mt-1">支持專家</span>
+                    </button>
+                    <button onclick="switchMediaStance('critical')" class="media-bar-tab bg-orange-400 hover:bg-orange-500 flex flex-col items-center justify-center text-white font-bold transition-all" style="width: 20%" data-stance="critical">
+                        <span class="text-lg">20%</span>
+                        <span class="text-xs mt-1">質疑中央</span>
+                    </button>
+                    <button onclick="switchMediaStance('reconstruction')" class="media-bar-tab bg-green-500 hover:bg-green-600 flex flex-col items-center justify-center text-white font-bold transition-all" style="width: 15%" data-stance="reconstruction">
+                        <span class="text-lg">15%</span>
+                        <span class="text-xs mt-1">關注重建</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="overflow-y-auto" style="max-height: calc(90vh - 280px);">
+                <!-- Neutral Content -->
+                <div id="neutral-media" class="media-content p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-gray-700"><span id="neutral-count">7</span> 篇文章</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <a href="https://today.line.me/tw/v3/article/RBV5o1z" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded mb-2">少年報導者</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">還原關鍵64天：崩塌量體比小林村大10倍的馬太鞍堰塞湖怎麼發現？</h4>
+                                    <p class="text-xs text-gray-500">2025/10/07</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gray-200 rounded ml-4 flex-shrink-0 overflow-hidden">
+                                    <img src="https://today-obs.line-scdn.net/0hZuS7rbIFBVpuThvZnVh6DTIYBjVdIhZZCnhUbhBPHhU1d0dfGX0QbkkyXxQqAkFwCkMBXS0PHRUbFUNtNEgWaS5PEjolIx5eGVQDbC1HEDolLAR3DnJCQDs/w580" alt="" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/1Dr70Q3" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded mb-2">上報</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">【懶人包】馬太鞍溪堰塞湖如何形成　應變時間軸、專家回應一次看</h4>
+                                    <p class="text-xs text-gray-500">2025/09/25</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gray-200 rounded ml-4 flex-shrink-0 overflow-hidden">
+                                    <img src="https://today-obs.line-scdn.net/0hFPIWO--7GX90LgfMgvtmKEx4FQ5HSAN2VkhUHQUqTk9dAlcgT0FKHAMuRlMKG1p-VEpRG1V6RE0OG10oTQ/w580" alt="" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/9m7ex5r" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded mb-2">讀+ READr</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">花蓮馬太鞍溪堰塞湖溢流釀災：還原災害時間軸</h4>
+                                    <p class="text-xs text-gray-500">2025/09/26</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/DRk9Kgp" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded mb-2">新頭殼</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">馬太鞍溪堰塞湖釀災！全台仍有2處在監測中、1處已消失 衛星照曝光</h4>
+                                    <p class="text-xs text-gray-500">2025/09/26</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/0MmEpaL" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded mb-2">信傳媒</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">馬太鞍溪堰塞湖之災》林保署：塞湖蓄水量剩15％</h4>
+                                    <p class="text-xs text-gray-500">2025/09/25</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/qoLO01k" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded mb-2">太報</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">回家囉！馬太鞍溪新堰塞湖水量剩20萬噸 解除紅色警戒</h4>
+                                    <p class="text-xs text-gray-500">2025/11/14</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gray-200 rounded ml-4 flex-shrink-0 overflow-hidden">
+                                    <img src="https://today-obs.line-scdn.net/0hid2ojcwINksPFik7BR5JHDdAOjo8cCxCLSAtLnkXa3t1OiUUMXZlKC0eO2cqcyMfL3V_JCpFO3pxdSUUYA/w580" alt="" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/YavDywN" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded mb-2">新頭殼</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">花蓮馬太鞍溪上游「2個堰塞湖」最新情形！</h4>
+                                    <p class="text-xs text-gray-500">2025/10/23</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Expert Support Content -->
+                <div id="expert-media" class="media-content p-6 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-gray-700"><span id="expert-count">6</span> 篇文章</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <a href="https://today.line.me/tw/v3/article/PGNJOJV" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded mb-2">信傳媒</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">馬太鞍溪堰塞湖之災》兩周前劉世芳打電話向李鴻源請益</h4>
+                                    <p class="text-xs text-gray-500">2025/09/24</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/nXyrWMy" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded mb-2">鏡新聞</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">光復鄉重創天災x人禍　究責甩鍋3／劉世芳2週前邀李鴻源組專家團</h4>
+                                    <p class="text-xs text-gray-500">2025/09/25</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/Yav8Zxa" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded mb-2">信傳媒</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">國民黨團匡200億元花蓮重建預算　李鴻源示警二次堰塞湖</h4>
+                                    <p class="text-xs text-gray-500">2025/10/03</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gray-200 rounded ml-4 flex-shrink-0 overflow-hidden">
+                                    <img src="https://today-obs.line-scdn.net/0hsJj-qYelLGVXVDLdMwNTMm8CIBRkMjZsdTEwUCZUcFF7eD9mbDF_BnRdcEkpY2Njd2VnCnJUJVd9bGlhYg/w580" alt="" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/yzYkB7Q" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded mb-2">風傳媒</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">花蓮堰塞湖溢流釀災　李鴻源示警「未來災害」</h4>
+                                    <p class="text-xs text-gray-500">2025/10/03</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/XYLKrV9" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded mb-2">風傳媒</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">挖土機超人不幸逝世　李鴻源嘆「所以才早說不要來」</h4>
+                                    <p class="text-xs text-gray-500">2025/10/07</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/7Nz9qVn" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded mb-2">華視新聞</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">「鏟子超人」衝災區！　李鴻源曝「嚴重後果」勸：別去</h4>
+                                    <p class="text-xs text-gray-500">2025/10/02</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gray-200 rounded ml-4 flex-shrink-0 overflow-hidden">
+                                    <img src="https://today-obs.line-scdn.net/0hQLwAaxKgDmNKOBDZnOlxNHJuAhJ5XhRqaAkUVmkwWVtuFEtmJlZdAGloV083AE0walZDBms4V1c3AEg1fg/w580" alt="" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Critical Content -->
+                <div id="critical-media" class="media-content p-6 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-gray-700"><span id="critical-count">4</span> 篇文章</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <a href="https://today.line.me/tw/v3/article/7NzWaZZ" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-orange-100 text-orange-700 rounded mb-2">鏡新聞</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">傅崐萁稱「爆破就解決了」　監測團隊曝難處！</h4>
+                                    <p class="text-xs text-gray-500">2025/09/24</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/JPwJ8yM" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-orange-100 text-orange-700 rounded mb-2">自由電子報</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">圖輯》馬太鞍堰塞湖更多現場照曝！另支6人探勘隊歸來揭溢流口畫面</h4>
+                                    <p class="text-xs text-gray-500">2025/10/09</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/wJMok5R" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-orange-100 text-orange-700 rounded mb-2">上報</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">花蓮馬太鞍溪再現新堰塞湖　今晚9點溢流、下游橋梁便道疑遭沖毀</h4>
+                                    <p class="text-xs text-gray-500">2025/10/21</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/gzrRE0g" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-orange-100 text-orange-700 rounded mb-2">民視新聞網</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">快逃！花蓮馬太鞍溪「凌晨再現新堰塞湖」　官方紅色警戒持續</h4>
+                                    <p class="text-xs text-gray-500">2025/11/13</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Reconstruction Content -->
+                <div id="reconstruction-media" class="media-content p-6 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-gray-700"><span id="reconstruction-count">3</span> 篇文章</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <a href="https://today.line.me/tw/v3/article/RBV5XmW" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-green-100 text-green-700 rounded mb-2">民視新聞網</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">「挖土機超人」救災8天病逝！李鴻源再喊「這類人」別去</h4>
+                                    <p class="text-xs text-gray-500">2025/10/08</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gray-200 rounded ml-4 flex-shrink-0 overflow-hidden">
+                                    <img src="https://today-obs.line-scdn.net/0hic7LucbbNkwKNSjO3o1JGzJjOj05UyxFKFZ5Iy1naiwhGXIeN1VlL383OmB0DXhPKlp9eC1iOHx0DSZPMg/w580" alt="" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/oq7m51o" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-green-100 text-green-700 rounded mb-2">新頭殼</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">全台「鏟子超人」湧入花蓮光復　志工分配站與救災地圖助攻重建</h4>
+                                    <p class="text-xs text-gray-500">2025/09/28</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://today.line.me/tw/v3/article/rmvO7rQ" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-1 text-xs bg-green-100 text-green-700 rounded mb-2">CTWANT</span>
+                                    <h4 class="font-bold text-gray-800 mb-1">恐釀1500萬噸堰塞湖！　花蓮光復鄉2720戶進入紅色警戒</h4>
+                                    <p class="text-xs text-gray-500">2025/11/08</p>
+                                </div>
+                                <div class="w-24 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded ml-4 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stakeholder Modal -->
+    <div id="stakeholderModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b">
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                    </svg>
+                    <h2 class="text-xl font-bold text-gray-800">利害關係人立場</h2>
+                </div>
+                <button onclick="closeStakeholderModal()" class="text-gray-400 hover:text-gray-600 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex overflow-x-auto border-b bg-gray-50">
+                <button onclick="switchStakeholder('central')" class="stakeholder-tab px-6 py-3 text-sm font-medium whitespace-nowrap border-b-2 border-purple-600 text-purple-600" data-stakeholder="central">
+                    中央政府
+                </button>
+                <button onclick="switchStakeholder('expert')" class="stakeholder-tab px-6 py-3 text-sm font-medium whitespace-nowrap text-gray-600 hover:text-purple-600" data-stakeholder="expert">
+                    水利專家
+                </button>
+                <button onclick="switchStakeholder('local')" class="stakeholder-tab px-6 py-3 text-sm font-medium whitespace-nowrap text-gray-600 hover:text-purple-600" data-stakeholder="local">
+                    花蓮縣政府
+                </button>
+                <button onclick="switchStakeholder('legislator')" class="stakeholder-tab px-6 py-3 text-sm font-medium whitespace-nowrap text-gray-600 hover:text-purple-600" data-stakeholder="legislator">
+                    國民黨團
+                </button>
+                <button onclick="switchStakeholder('forestry')" class="stakeholder-tab px-6 py-3 text-sm font-medium whitespace-nowrap text-gray-600 hover:text-purple-600" data-stakeholder="forestry">
+                    林業保育署
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 overflow-y-auto" style="max-height: calc(90vh - 180px);">
+                <!-- Central Government Content -->
+                <div id="central-content" class="stakeholder-content">
+                    <h3 class="text-2xl font-bold mb-4">中央政府（內政部）</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-lg font-bold text-purple-700 mb-2">核心訴求</h4>
+                        <p class="text-gray-700">依法行政、專業評估優先、確保人民安全。</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-bold text-purple-700 mb-3">最新觀點陳述</h4>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>專業團隊評估：</strong>兩週前邀請李鴻源組成專家團隊，經過詳細評估後認為爆破方案風險過高，可能造成更大災害，最終決定採取監測與疏散策略。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>成功疏散7-8千人：</strong>在專家建議下提前部署疏散計畫，成功撤離7,000-8,000名居民，大幅降低傷亡人數。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>持續監測應變：</strong>與林業保育署密切合作，透過衛星影像和空中勘查即時監測堰塞湖水位變化，確保預警系統運作正常。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>重建預算支持：</strong>配合立法院推動200億元災後重建特別條例，協助花蓮縣政府進行災後復原工作。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Expert Content -->
+                <div id="expert-content" class="stakeholder-content hidden">
+                    <h3 class="text-2xl font-bold mb-4">水利專家（李鴻源）</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-lg font-bold text-purple-700 mb-2">核心訴求</h4>
+                        <p class="text-gray-700">科學決策、專業至上、長期防災規劃。</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-bold text-purple-700 mb-3">最新觀點陳述</h4>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>反對爆破方案：</strong>堰塞湖位於深山，地形複雜且崩塌量體達小林村10倍，爆破可能引發更大規模崩塌，風險遠大於效益。與過去南投案例情況完全不同。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>警告二次災害：</strong>馬太鞍溪上游仍有不穩定地質，可能再次形成堰塞湖。10月和11月已多次出現新堰塞湖，證實了預警的準確性。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>提出遷村建議：</strong>針對高風險區域提出六大遷村建議，認為長期而言應將居民遷離危險地帶，而非持續投入資源維護不安全的居住環境。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>呼籲志工勿冒險：</strong>多次強調「災區不是你想的那樣子」，專業救災需要訓練和設備。挖土機超人不幸逝世後，更強烈建議民眾不要貿然進入災區。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Local Government Content -->
+                <div id="local-content" class="stakeholder-content hidden">
+                    <h3 class="text-2xl font-bold mb-4">花蓮縣政府（徐榛蔚）</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-lg font-bold text-purple-700 mb-2">核心訴求</h4>
+                        <p class="text-gray-700">加速救災、協助重建、爭取中央資源。</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-bold text-purple-700 mb-3">最新觀點陳述</h4>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>公開致歉：</strong>首度為堰塞湖洪災造成19死5失蹤公開致歉，表示「責無旁貸」，承認縣政府對災情負有責任。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>協調地方救災：</strong>統籌地方救災資源，配合林業保育署紅色警戒發布疏散命令，協助受災居民安置工作。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>持續監測警戒：</strong>11月多次新堰塞湖形成，2,720戶進入紅色警戒。縣府持續與中央和林保署合作，維持24小時監測機制。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>推動災後重建：</strong>配合中央推動200億重建預算，規劃光復鄉、鳳林鄉等受災地區的基礎建設修復和居民安置方案。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Legislator Content -->
+                <div id="legislator-content" class="stakeholder-content hidden">
+                    <h3 class="text-2xl font-bold mb-4">國民黨立法院黨團（傅崐萁）</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-lg font-bold text-purple-700 mb-2">核心訴求</h4>
+                        <p class="text-gray-700">質疑中央作為、爭取重建預算、要求政府負責。</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-bold text-purple-700 mb-3">最新觀點陳述</h4>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>質疑不爆破決定：</strong>認為中央應比照過去南投堰塞湖案例採取爆破處置，質疑為何此次不採取更積極的作為。對專家「爆破不可行」的結論持保留態度。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>推動200億重建預算：</strong>優先推動「樺加沙風災暨花蓮光復堰塞湖潰決災後重建特別條例草案」，初步匡列200億元重建經費。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>要求中央負責：</strong>認為中央政府應對災害應變負起更大責任，不應將責任推給地方政府或歸咎於天災不可抗力。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>監督重建進度：</strong>持續監督災後重建預算執行，確保資源確實用於受災地區，不被挪作他用。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Forestry Content -->
+                <div id="forestry-content" class="stakeholder-content hidden">
+                    <h3 class="text-2xl font-bold mb-4">林業及自然保育署（花蓮分署）</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-lg font-bold text-purple-700 mb-2">核心訴求</h4>
+                        <p class="text-gray-700">科學監測、即時預警、提供決策依據。</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-bold text-purple-700 mb-3">最新觀點陳述</h4>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>持續空中勘查：</strong>自7月堰塞湖形成以來，持續透過直升機進行空中勘查，記錄堰塞湖水位、蓄水量和壩體穩定度變化。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>紅色警戒發布：</strong>根據監測數據評估潰決風險，適時發布紅色警戒。11月新堰塞湖形成後，立即通報縣政府啟動疏散機制。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>蓄水量即時更新：</strong>9月23日潰決前監測到3千多萬噸蓄水，潰決後蓄水量降至15%。11月新堰塞湖最高達1,500萬噸，後降至20萬噸並解除警戒。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>衛星影像追蹤：</strong>配合「翻轉地理教室」等單位，利用衛星影像追蹤全台堰塞湖狀況。目前馬太鞍溪上游仍有2處堰塞湖在監測中，1處已消失。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8 mt-12">
         <div class="container mx-auto px-4 text-center">
@@ -555,5 +1124,98 @@
             <p class="text-sm text-gray-400 mt-2">本網頁僅供 Demo 展示使用</p>
         </div>
     </footer>
+
+    <script>
+        // Media Modal Functions
+        function openMediaModal(stance) {
+            document.getElementById('mediaModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            switchMediaStance(stance);
+        }
+
+        function closeMediaModal() {
+            document.getElementById('mediaModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function switchMediaStance(stance) {
+            // Hide all content
+            const contents = document.querySelectorAll('.media-content');
+            contents.forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Show selected content
+            document.getElementById(stance + '-media').classList.remove('hidden');
+
+            // Update bar visual feedback
+            const barTabs = document.querySelectorAll('.media-bar-tab');
+            barTabs.forEach(tab => {
+                tab.style.opacity = '0.6';
+                tab.style.transform = 'scale(0.95)';
+            });
+
+            const activeBarTab = document.querySelector(`.media-bar-tab[data-stance="${stance}"]`);
+            if (activeBarTab) {
+                activeBarTab.style.opacity = '1';
+                activeBarTab.style.transform = 'scale(1)';
+            }
+        }
+
+        // Stakeholder Modal Functions
+        function openStakeholderModal() {
+            document.getElementById('stakeholderModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeStakeholderModal() {
+            document.getElementById('stakeholderModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function switchStakeholder(stakeholder) {
+            // Hide all content
+            const contents = document.querySelectorAll('.stakeholder-content');
+            contents.forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Remove active state from all tabs
+            const tabs = document.querySelectorAll('.stakeholder-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('border-b-2', 'border-purple-600', 'text-purple-600');
+                tab.classList.add('text-gray-600');
+            });
+
+            // Show selected content
+            document.getElementById(stakeholder + '-content').classList.remove('hidden');
+
+            // Add active state to selected tab
+            const activeTab = document.querySelector(`[data-stakeholder="${stakeholder}"]`);
+            activeTab.classList.add('border-b-2', 'border-purple-600', 'text-purple-600');
+            activeTab.classList.remove('text-gray-600');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('stakeholderModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeStakeholderModal();
+            }
+        });
+
+        document.getElementById('mediaModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMediaModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeStakeholderModal();
+                closeMediaModal();
+            }
+        });
+    </script>
 </body>
 </html>
