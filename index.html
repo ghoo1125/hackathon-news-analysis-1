@@ -456,28 +456,19 @@
                         </svg>
                         <h2 class="text-2xl font-bold text-gray-800">相關圖片</h2>
                     </div>
-                    <button class="text-purple-600 hover:text-purple-800 text-sm font-medium">查看全部 →</button>
+                    <button onclick="openImageGallery(0)" class="text-purple-600 hover:text-purple-800 text-sm font-medium transition">查看全部 →</button>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition">
+                    <button onclick="openImageGallery(0)" class="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer">
                         <img src="https://today-obs.line-scdn.net/0hZuS7rbIFBVpuThvZnVh6DTIYBjVdIhZZCnhUbhBPHhU1d0dfGX0QbkkyXxQqAkFwCkMBXS0PHRUbFUNtNEgWaS5PEjolIx5eGVQDbC1HEDolLAR3DnJCQDs/w580" alt="堰塞湖空拍圖" class="w-full h-full object-cover">
-                    </div>
-                    <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition">
+                    </button>
+                    <button onclick="openImageGallery(1)" class="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer">
                         <img src="https://today-obs.line-scdn.net/0hFPIWO--7GX90LgfMgvtmKEx4FQ5HSAN2VkhUHQUqTk9dAlcgT0FKHAMuRlMKG1p-VEpRG1V6RE0OG10oTQ/w580" alt="災害現場" class="w-full h-full object-cover">
-                    </div>
-                    <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition">
+                    </button>
+                    <button onclick="openImageGallery(2)" class="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer">
                         <img src="https://today-obs.line-scdn.net/0hsJj-qYelLGVXVDLdMwNTMm8CIBRkMjZsdTEwUCZUcFF7eD9mbDF_BnRdcEkpY2Njd2VnCnJUJVd9bGlhYg/w580" alt="重建現場" class="w-full h-full object-cover">
-                    </div>
-                    <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition">
-                        <img src="https://today-obs.line-scdn.net/0hQLwAaxKgDmNKOBDZnOlxNHJuAhJ5XhRqaAkUVmkwWVtuFEtmJlZdAGloV083AE0walZDBms4V1c3AEg1fg/w580" alt="志工救災" class="w-full h-full object-cover">
-                    </div>
-                    <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition">
-                        <img src="https://today-obs.line-scdn.net/0hic7LucbbNkwKNSjO3o1JGzJjOj05UyxFKFZ5Iy1naiwhGXIeN1VlL383OmB0DXhPKlp9eC1iOHx0DSZPMg/w580" alt="救災設備" class="w-full h-full object-cover">
-                    </div>
-                    <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition">
-                        <img src="https://today-obs.line-scdn.net/0hid2ojcwINksPFik7BR5JHDdAOjo8cCxCLSAtLnkXa3t1OiUUMXZlKC0eO2cqcyMfL3V_JCpFO3pxdSUUYA/w580" alt="堰塞湖監測" class="w-full h-full object-cover">
-                    </div>
+                    </button>
                 </div>
             </section>
         </div>
@@ -1105,6 +1096,65 @@
         </div>
     </div>
 
+    <!-- Image Gallery Modal -->
+    <div id="imageGalleryModal" class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden flex items-center justify-center">
+        <div class="relative w-full h-full flex items-center justify-center p-4">
+            <!-- Close Button -->
+            <button onclick="closeImageGallery()" class="absolute top-4 right-4 text-white hover:text-gray-300 transition z-10">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <!-- Image Counter -->
+            <div class="absolute top-4 left-4 text-white text-lg font-medium z-10">
+                <span id="current-image-index">1</span> / <span id="total-images">6</span>
+            </div>
+
+            <!-- Previous Button -->
+            <button onclick="previousImage()" class="absolute left-4 text-white hover:text-gray-300 transition z-10 bg-black bg-opacity-50 rounded-full p-3 hover:bg-opacity-70">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+
+            <!-- Image Display -->
+            <div class="max-w-5xl max-h-full flex flex-col items-center">
+                <img id="gallery-image" src="" alt="" class="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl">
+                <p id="gallery-image-caption" class="text-white text-lg mt-4 text-center"></p>
+            </div>
+
+            <!-- Next Button -->
+            <button onclick="nextImage()" class="absolute right-4 text-white hover:text-gray-300 transition z-10 bg-black bg-opacity-50 rounded-full p-3 hover:bg-opacity-70">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+
+            <!-- Thumbnail Strip (Optional) -->
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 overflow-x-auto max-w-4xl px-4">
+                <button onclick="openImageGallery(0)" id="thumb-0" class="gallery-thumb flex-shrink-0 w-20 h-12 rounded overflow-hidden opacity-50 hover:opacity-100 transition">
+                    <img src="https://today-obs.line-scdn.net/0hZuS7rbIFBVpuThvZnVh6DTIYBjVdIhZZCnhUbhBPHhU1d0dfGX0QbkkyXxQqAkFwCkMBXS0PHRUbFUNtNEgWaS5PEjolIx5eGVQDbC1HEDolLAR3DnJCQDs/w580" alt="" class="w-full h-full object-cover">
+                </button>
+                <button onclick="openImageGallery(1)" id="thumb-1" class="gallery-thumb flex-shrink-0 w-20 h-12 rounded overflow-hidden opacity-50 hover:opacity-100 transition">
+                    <img src="https://today-obs.line-scdn.net/0hFPIWO--7GX90LgfMgvtmKEx4FQ5HSAN2VkhUHQUqTk9dAlcgT0FKHAMuRlMKG1p-VEpRG1V6RE0OG10oTQ/w580" alt="" class="w-full h-full object-cover">
+                </button>
+                <button onclick="openImageGallery(2)" id="thumb-2" class="gallery-thumb flex-shrink-0 w-20 h-12 rounded overflow-hidden opacity-50 hover:opacity-100 transition">
+                    <img src="https://today-obs.line-scdn.net/0hsJj-qYelLGVXVDLdMwNTMm8CIBRkMjZsdTEwUCZUcFF7eD9mbDF_BnRdcEkpY2Njd2VnCnJUJVd9bGlhYg/w580" alt="" class="w-full h-full object-cover">
+                </button>
+                <button onclick="openImageGallery(3)" id="thumb-3" class="gallery-thumb flex-shrink-0 w-20 h-12 rounded overflow-hidden opacity-50 hover:opacity-100 transition">
+                    <img src="https://today-obs.line-scdn.net/0hQLwAaxKgDmNKOBDZnOlxNHJuAhJ5XhRqaAkUVmkwWVtuFEtmJlZdAGloV083AE0walZDBms4V1c3AEg1fg/w580" alt="" class="w-full h-full object-cover">
+                </button>
+                <button onclick="openImageGallery(4)" id="thumb-4" class="gallery-thumb flex-shrink-0 w-20 h-12 rounded overflow-hidden opacity-50 hover:opacity-100 transition">
+                    <img src="https://today-obs.line-scdn.net/0hic7LucbbNkwKNSjO3o1JGzJjOj05UyxFKFZ5Iy1naiwhGXIeN1VlL383OmB0DXhPKlp9eC1iOHx0DSZPMg/w580" alt="" class="w-full h-full object-cover">
+                </button>
+                <button onclick="openImageGallery(5)" id="thumb-5" class="gallery-thumb flex-shrink-0 w-20 h-12 rounded overflow-hidden opacity-50 hover:opacity-100 transition">
+                    <img src="https://today-obs.line-scdn.net/0hid2ojcwINksPFik7BR5JHDdAOjo8cCxCLSAtLnkXa3t1OiUUMXZlKC0eO2cqcyMfL3V_JCpFO3pxdSUUYA/w580" alt="" class="w-full h-full object-cover">
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Timeline Articles Modal -->
     <div id="timelineArticlesModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
@@ -1141,6 +1191,60 @@
     </footer>
 
     <script>
+        // Image Gallery Data
+        const galleryImages = [
+            { url: 'https://today-obs.line-scdn.net/0hZuS7rbIFBVpuThvZnVh6DTIYBjVdIhZZCnhUbhBPHhU1d0dfGX0QbkkyXxQqAkFwCkMBXS0PHRUbFUNtNEgWaS5PEjolIx5eGVQDbC1HEDolLAR3DnJCQDs/w580', caption: '堰塞湖空拍圖 - 馬太鞍溪上游形成的大規模堰塞湖' },
+            { url: 'https://today-obs.line-scdn.net/0hFPIWO--7GX90LgfMgvtmKEx4FQ5HSAN2VkhUHQUqTk9dAlcgT0FKHAMuRlMKG1p-VEpRG1V6RE0OG10oTQ/w580', caption: '災害現場 - 堰塞湖潰決後的淹水情況' },
+            { url: 'https://today-obs.line-scdn.net/0hsJj-qYelLGVXVDLdMwNTMm8CIBRkMjZsdTEwUCZUcFF7eD9mbDF_BnRdcEkpY2Njd2VnCnJUJVd9bGlhYg/w580', caption: '重建現場 - 災後重建工作持續進行' },
+            { url: 'https://today-obs.line-scdn.net/0hQLwAaxKgDmNKOBDZnOlxNHJuAhJ5XhRqaAkUVmkwWVtuFEtmJlZdAGloV083AE0walZDBms4V1c3AEg1fg/w580', caption: '志工救災 - 鏟子超人投入清淤工作' },
+            { url: 'https://today-obs.line-scdn.net/0hic7LucbbNkwKNSjO3o1JGzJjOj05UyxFKFZ5Iy1naiwhGXIeN1VlL383OmB0DXhPKlp9eC1iOHx0DSZPMg/w580', caption: '救災設備 - 挖土機超人協助災區清理' },
+            { url: 'https://today-obs.line-scdn.net/0hid2ojcwINksPFik7BR5JHDdAOjo8cCxCLSAtLnkXa3t1OiUUMXZlKC0eO2cqcyMfL3V_JCpFO3pxdSUUYA/w580', caption: '堰塞湖監測 - 林業保育署持續監測水位變化' }
+        ];
+
+        let currentImageIndex = 0;
+
+        // Image Gallery Functions
+        function openImageGallery(index) {
+            currentImageIndex = index;
+            updateGalleryImage();
+            document.getElementById('imageGalleryModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageGallery() {
+            document.getElementById('imageGalleryModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateGalleryImage() {
+            const image = galleryImages[currentImageIndex];
+            document.getElementById('gallery-image').src = image.url;
+            document.getElementById('gallery-image-caption').textContent = image.caption;
+            document.getElementById('current-image-index').textContent = currentImageIndex + 1;
+            document.getElementById('total-images').textContent = galleryImages.length;
+
+            // Update thumbnail active state
+            document.querySelectorAll('.gallery-thumb').forEach((thumb, index) => {
+                if (index === currentImageIndex) {
+                    thumb.classList.remove('opacity-50');
+                    thumb.classList.add('opacity-100', 'ring-2', 'ring-white');
+                } else {
+                    thumb.classList.add('opacity-50');
+                    thumb.classList.remove('opacity-100', 'ring-2', 'ring-white');
+                }
+            });
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            updateGalleryImage();
+        }
+
+        function previousImage() {
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateGalleryImage();
+        }
+
         // Timeline Articles Data
         const timelineArticlesData = {
             formation: {
@@ -1448,9 +1552,21 @@
             }
         });
 
-        // Close modal with Escape key
+        // Keyboard event handlers
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
+            const galleryModal = document.getElementById('imageGalleryModal');
+
+            // If gallery is open, handle gallery navigation
+            if (!galleryModal.classList.contains('hidden')) {
+                if (e.key === 'Escape') {
+                    closeImageGallery();
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
+                } else if (e.key === 'ArrowLeft') {
+                    previousImage();
+                }
+            } else if (e.key === 'Escape') {
+                // Close other modals with Escape
                 closeStakeholderModal();
                 closeMediaModal();
                 closeOpinionModal();
@@ -1523,6 +1639,13 @@
         document.getElementById('timelineArticlesModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeTimelineArticlesModal();
+            }
+        });
+
+        // Add image gallery modal click outside to close
+        document.getElementById('imageGalleryModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageGallery();
             }
         });
     </script>
