@@ -266,49 +266,41 @@
 
                     <!-- Public Opinion Details -->
                     <div class="space-y-4">
-                        <div class="bg-gray-50 rounded-lg p-4">
+                        <button onclick="openOpinionModal('neutral')" class="w-full bg-gray-50 rounded-lg p-4 hover:shadow-md transition text-left">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="font-bold text-gray-700">中立觀望</h3>
-                                <span class="text-sm text-gray-600">24 篇相關留言 →</span>
+                                <span class="text-sm text-gray-600">查看詳細 →</span>
                             </div>
-                            <p class="text-gray-600 text-sm mb-2">價值陳述事實與轉貼資訊</p>
-                            <div class="bg-white rounded p-3 text-sm text-gray-700 italic">
-                                「留言內容僅為轉貼新聞、詢問解約進度，或純粹分享資訊，不帶明顯情緒或政治立場。」
-                            </div>
-                        </div>
+                            <p class="text-gray-600 text-sm mb-2">核心觀點：客觀陳述事實與轉貼資訊</p>
+                            <p class="text-xs text-gray-500">出現在 7 篇文章的 24 則留言中</p>
+                        </button>
 
-                        <div class="bg-purple-50 rounded-lg p-4">
+                        <button onclick="openOpinionModal('support')" class="w-full bg-purple-50 rounded-lg p-4 hover:shadow-md transition text-left">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="font-bold text-purple-700">支持專家決策</h3>
-                                <span class="text-sm text-gray-600">38 篇相關留言 →</span>
+                                <span class="text-sm text-purple-600">查看詳細 →</span>
                             </div>
-                            <p class="text-gray-600 text-sm mb-2">認同專業評估和不爆破決定</p>
-                            <div class="bg-white rounded p-3 text-sm text-gray-700 italic">
-                                「感謝李鴻源和專家團隊的專業判斷，爆破風險太高，疏散才是正確做法」、「支持科學決策，不要讓政治凌駕專業」、「慶幸有及時疏散，否則傷亡會更慘重」
-                            </div>
-                        </div>
+                            <p class="text-gray-600 text-sm mb-2">核心觀點：認同專業評估和不爆破決定</p>
+                            <p class="text-xs text-gray-500">出現在 6 篇文章的 38 則留言中</p>
+                        </button>
 
-                        <div class="bg-orange-50 rounded-lg p-4">
+                        <button onclick="openOpinionModal('critical')" class="w-full bg-orange-50 rounded-lg p-4 hover:shadow-md transition text-left">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="font-bold text-orange-700">批評政府應變</h3>
-                                <span class="text-sm text-gray-600">19 篇相關留言 →</span>
+                                <span class="text-sm text-orange-600">查看詳細 →</span>
                             </div>
-                            <p class="text-gray-600 text-sm mb-2">質疑災害應變效率與責任歸屬</p>
-                            <div class="bg-white rounded p-3 text-sm text-gray-700 italic">
-                                「堰塞湖7月就形成了，為什麼9月才出事？」、「縣政府監測不力，造成這麼多人傷亡」、「中央地方互踢皮球，受苦的是百姓」
-                            </div>
-                        </div>
+                            <p class="text-gray-600 text-sm mb-2">核心觀點：質疑災害應變效率與責任歸屬</p>
+                            <p class="text-xs text-gray-500">出現在 4 篇文章的 19 則留言中</p>
+                        </button>
 
-                        <div class="bg-green-50 rounded-lg p-4">
+                        <button onclick="openOpinionModal('reconstruction')" class="w-full bg-green-50 rounded-lg p-4 hover:shadow-md transition text-left">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="font-bold text-green-700">關注災後與志工</h3>
-                                <span class="text-sm text-gray-600">14 篇相關留言 →</span>
+                                <span class="text-sm text-green-600">查看詳細 →</span>
                             </div>
-                            <p class="text-gray-600 text-sm mb-2">支持重建行動與哀悼志工</p>
-                            <div class="bg-white rounded p-3 text-sm text-gray-700 italic">
-                                「向『挖土機超人』致敬，願他安息」、「台灣最美的風景是人，感謝所有志工」、「希望200億預算能真正用在重建上」、「支持遷村，不要讓居民再冒險」
-                            </div>
-                        </div>
+                            <p class="text-gray-600 text-sm mb-2">核心觀點：支持重建行動與哀悼志工</p>
+                            <p class="text-xs text-gray-500">出現在 3 篇文章的 14 則留言中</p>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -547,6 +539,59 @@
             </section>
         </div>
     </main>
+
+    <!-- Public Opinion Modal -->
+    <div id="opinionModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b">
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/>
+                        <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/>
+                    </svg>
+                    <h2 class="text-xl font-bold text-gray-800" id="opinion-modal-title">輿論支持</h2>
+                </div>
+                <button onclick="closeOpinionModal()" class="text-gray-400 hover:text-gray-600 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="overflow-y-auto" style="max-height: calc(90vh - 100px);">
+                <div class="p-6">
+                    <!-- Summary Section -->
+                    <div id="opinion-summary" class="mb-6">
+                        <!-- Will be filled by JavaScript -->
+                    </div>
+
+                    <!-- High Frequency Viewpoints -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3">高頻觀點</h3>
+                        <div id="high-freq-viewpoints" class="space-y-2">
+                            <!-- Will be filled by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Detailed Comments Section -->
+                    <div>
+                        <button onclick="toggleDetailedComments()" class="flex items-center justify-between w-full p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                            <span class="font-bold text-gray-800">查看所有詳細留言</span>
+                            <svg id="expand-icon" class="w-5 h-5 text-gray-600 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+
+                        <div id="detailed-comments" class="hidden mt-4 space-y-3">
+                            <!-- Will be filled by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Media Stance Modal -->
     <div id="mediaModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
@@ -1126,6 +1171,164 @@
     </footer>
 
     <script>
+        // Opinion Data
+        const opinionData = {
+            neutral: {
+                title: '中立觀望',
+                percent: '25%',
+                color: 'gray',
+                core: '客觀陳述事實與轉貼資訊',
+                articles: 7,
+                comments: 24,
+                viewpoints: [
+                    { text: '留言內容僅為轉貼新聞或分享資訊', count: 8 },
+                    { text: '詢問災情進展和疏散狀況', count: 6 },
+                    { text: '關注最新監測數據更新', count: 5 },
+                    { text: '單純表達對受災者的關心', count: 5 }
+                ],
+                details: [
+                    { text: '有最新的監測數據嗎？想了解目前狀況', source: '還原關鍵64天：崩塌量體比小林村大10倍...', date: '2025/10/07', likes: 3, url: 'https://today.line.me/tw/v3/article/RBV5o1z' },
+                    { text: '分享給大家參考，希望大家都平安', source: '【懶人包】馬太鞍溪堰塞湖如何形成', date: '2025/09/25', likes: 5, url: 'https://today.line.me/tw/v3/article/1Dr70Q3' },
+                    { text: '疏散的居民現在都安置好了嗎？', source: '花蓮馬太鞍溪堰塞湖溢流釀災：還原災害時間軸', date: '2025/09/26', likes: 2, url: 'https://today.line.me/tw/v3/article/9m7ex5r' },
+                    { text: '林保署有持續更新水位資料', source: '馬太鞍溪堰塞湖之災》林保署：塞湖蓄水量剩15％', date: '2025/09/25', likes: 4, url: 'https://today.line.me/tw/v3/article/0MmEpaL' }
+                ]
+            },
+            support: {
+                title: '支持專家決策',
+                percent: '40%',
+                color: 'purple',
+                core: '認同專業評估和不爆破決定',
+                articles: 6,
+                comments: 38,
+                viewpoints: [
+                    { text: '感謝李鴻源和專家團隊的專業判斷', count: 12 },
+                    { text: '支持科學決策，不要讓政治凌駕專業', count: 10 },
+                    { text: '爆破風險太高，疏散才是正確做法', count: 8 },
+                    { text: '慶幸有及時疏散，否則傷亡會更慘重', count: 8 }
+                ],
+                details: [
+                    { text: '感謝李鴻源前部長的專業判斷，爆破真的風險太高了！幸好有提前疏散', source: '馬太鞍溪堰塞湖之災》兩周前劉世芳打電話向李鴻源請益', date: '2025/09/24', likes: 15, url: 'https://today.line.me/tw/v3/article/PGNJOJV' },
+                    { text: '支持專家的決定！科學評估比政治考量重要', source: '光復鄉重創天災x人禍　究責甩鍋3', date: '2025/09/25', likes: 12, url: 'https://today.line.me/tw/v3/article/nXyrWMy' },
+                    { text: '這次真的是專業的勝利，成功疏散了7-8千人', source: '國民黨團匡200億元花蓮重建預算　李鴻源示警二次堰塞湖', date: '2025/10/03', likes: 18, url: 'https://today.line.me/tw/v3/article/Yav8Zxa' },
+                    { text: '李鴻源說得對，這種堰塞湖爆破真的不可行', source: '花蓮堰塞湖溢流釀災　李鴻源示警「未來災害」', date: '2025/10/03', likes: 10, url: 'https://today.line.me/tw/v3/article/yzYkB7Q' },
+                    { text: '看到專家的警告真的很重要，二次堰塞湖果然出現了', source: '挖土機超人不幸逝世　李鴻源嘆「所以才早說不要來」', date: '2025/10/07', likes: 14, url: 'https://today.line.me/tw/v3/article/XYLKrV9' }
+                ]
+            },
+            critical: {
+                title: '批評政府應變',
+                percent: '20%',
+                color: 'orange',
+                core: '質疑災害應變效率與責任歸屬',
+                articles: 4,
+                comments: 19,
+                viewpoints: [
+                    { text: '堰塞湖7月就形成了，為什麼9月才出事', count: 6 },
+                    { text: '監測不力造成這麼多人傷亡', count: 5 },
+                    { text: '中央地方互踢皮球，受苦的是百姓', count: 4 },
+                    { text: '為什麼不早點強制撤離', count: 4 }
+                ],
+                details: [
+                    { text: '7月就知道有堰塞湖了，到9月才出事，這中間在做什麼？', source: '傅崐萁稱「爆破就解決了」　監測團隊曝難處！', date: '2025/09/24', likes: 8, url: 'https://today.line.me/tw/v3/article/7NzWaZZ' },
+                    { text: '縣政府應該要負起責任，監測系統有問題', source: '圖輯》馬太鞍堰塞湖更多現場照曝', date: '2025/10/09', likes: 6, url: 'https://today.line.me/tw/v3/article/JPwJ8yM' },
+                    { text: '中央和地方都在互推責任，到底誰該負責？', source: '花蓮馬太鞍溪再現新堰塞湖　今晚9點溢流', date: '2025/10/21', likes: 7, url: 'https://today.line.me/tw/v3/article/wJMok5R' },
+                    { text: '又來了！這次能不能早點疏散？不要再出人命了', source: '快逃！花蓮馬太鞍溪「凌晨再現新堰塞湖」', date: '2025/11/13', likes: 9, url: 'https://today.line.me/tw/v3/article/gzrRE0g' }
+                ]
+            },
+            reconstruction: {
+                title: '關注災後與志工',
+                percent: '15%',
+                color: 'green',
+                core: '支持重建行動與哀悼志工',
+                articles: 3,
+                comments: 14,
+                viewpoints: [
+                    { text: '向「挖土機超人」致敬，願他安息', count: 5 },
+                    { text: '台灣最美的風景是人，感謝所有志工', count: 4 },
+                    { text: '希望200億預算能真正用在重建上', count: 3 },
+                    { text: '支持遷村，不要讓居民再冒險', count: 2 }
+                ],
+                details: [
+                    { text: 'RIP 挖土機超人，你的付出我們不會忘記。希望家屬節哀', source: '「挖土機超人」救災8天病逝！', date: '2025/10/08', likes: 22, url: 'https://today.line.me/tw/v3/article/RBV5XmW' },
+                    { text: '感動！這麼多志工從全台趕來幫忙，台灣人真的很溫暖', source: '全台「鏟子超人」湧入花蓮光復', date: '2025/09/28', likes: 18, url: 'https://today.line.me/tw/v3/article/oq7m51o' },
+                    { text: '200億重建預算要好好監督，不能讓錢不見', source: '國民黨團匡200億元花蓮重建預算', date: '2025/10/03', likes: 11, url: 'https://today.line.me/tw/v3/article/Yav8Zxa' },
+                    { text: '2720戶又要紅色警戒了，真的該考慮遷村了', source: '恐釀1500萬噸堰塞湖！　花蓮光復鄉2720戶進入紅色警戒', date: '2025/11/08', likes: 13, url: 'https://today.line.me/tw/v3/article/rmvO7rQ' }
+                ]
+            }
+        };
+
+        // Public Opinion Modal Functions
+        function openOpinionModal(stance) {
+            const data = opinionData[stance];
+            const modal = document.getElementById('opinionModal');
+
+            // Update title
+            document.getElementById('opinion-modal-title').innerHTML = `${data.title} <span class="text-${data.color}-600">(${data.percent})</span>`;
+
+            // Update summary
+            const summaryHtml = `
+                <div class="bg-${data.color}-50 rounded-lg p-4 border-l-4 border-${data.color}-500">
+                    <p class="text-gray-700 mb-2"><strong>核心觀點：</strong>${data.core}</p>
+                    <p class="text-sm text-gray-600">出現在 <strong>${data.articles}</strong> 篇文章的 <strong>${data.comments}</strong> 則留言中</p>
+                </div>
+            `;
+            document.getElementById('opinion-summary').innerHTML = summaryHtml;
+
+            // Update high frequency viewpoints
+            const viewpointsHtml = data.viewpoints.map(v => `
+                <div class="flex items-start bg-white rounded-lg p-3 border">
+                    <span class="text-${data.color}-600 mr-2">•</span>
+                    <div class="flex-1">
+                        <p class="text-gray-800">${v.text}</p>
+                        <p class="text-xs text-gray-500 mt-1">${v.count} 則類似留言</p>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('high-freq-viewpoints').innerHTML = viewpointsHtml;
+
+            // Update detailed comments
+            const commentsHtml = data.details.map(c => `
+                <div class="bg-white rounded-lg p-4 border hover:shadow-md transition">
+                    <div class="flex items-start mb-2">
+                        <svg class="w-5 h-5 text-${data.color}-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/>
+                        </svg>
+                        <p class="text-gray-800 flex-1">"${c.text}"</p>
+                    </div>
+                    <div class="ml-7">
+                        <a href="${c.url}" target="_blank" class="text-sm text-${data.color}-600 hover:underline">
+                            來自：${c.source} →
+                        </a>
+                        <div class="flex items-center justify-between mt-1">
+                            <span class="text-xs text-gray-500">${c.date}</span>
+                            <span class="text-xs text-gray-500">👍 ${c.likes}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('detailed-comments').innerHTML = commentsHtml;
+
+            // Show modal
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            // Reset expanded state
+            document.getElementById('detailed-comments').classList.add('hidden');
+            document.getElementById('expand-icon').classList.remove('rotate-180');
+        }
+
+        function closeOpinionModal() {
+            document.getElementById('opinionModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleDetailedComments() {
+            const detailedComments = document.getElementById('detailed-comments');
+            const expandIcon = document.getElementById('expand-icon');
+
+            detailedComments.classList.toggle('hidden');
+            expandIcon.classList.toggle('rotate-180');
+        }
+
         // Media Modal Functions
         function openMediaModal(stance) {
             document.getElementById('mediaModal').classList.remove('hidden');
@@ -1209,11 +1412,18 @@
             }
         });
 
+        document.getElementById('opinionModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeOpinionModal();
+            }
+        });
+
         // Close modal with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeStakeholderModal();
                 closeMediaModal();
+                closeOpinionModal();
             }
         });
     </script>
