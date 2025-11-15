@@ -321,8 +321,8 @@
                 </div>
 
                 <div class="space-y-6">
-                    <!-- Timeline Item -->
-                    <div class="flex items-start">
+                    <!-- Timeline Item 1 -->
+                    <div class="flex items-start timeline-item">
                         <div class="flex-shrink-0">
                             <div class="w-24 h-16 bg-black text-white rounded-full flex flex-col items-center justify-center font-bold">
                                 <span class="text-xs">2025年</span>
@@ -333,25 +333,15 @@
                             <div class="bg-white rounded-lg shadow-md p-5 border-l-4 border-purple-500">
                                 <div class="flex items-center justify-between mb-2">
                                     <h3 class="font-bold text-lg">堰塞湖形成</h3>
-                                    <span class="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">12 篇文章 →</span>
+                                    <button onclick="openTimelineArticles('formation')" class="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition">2 篇文章 →</button>
                                 </div>
                                 <p class="text-gray-700">花蓮馬太鞍溪上游因大雨發生崩塌，形成堰塞湖。林業保育署開始監測，評估蓄水量持續增加。</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Expand All Button -->
-                    <div class="flex justify-center">
-                        <button class="bg-purple-100 text-purple-700 px-6 py-2 rounded-full font-medium hover:bg-purple-200 transition flex items-center">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
-                            </svg>
-                            展開全部
-                        </button>
-                    </div>
-
-                    <!-- Timeline Item -->
-                    <div class="flex items-start">
+                    <!-- Timeline Item 2 -->
+                    <div class="flex items-start timeline-item">
                         <div class="flex-shrink-0">
                             <div class="w-24 h-16 bg-black text-white rounded-full flex flex-col items-center justify-center font-bold">
                                 <span class="text-xs">2025年</span>
@@ -362,142 +352,95 @@
                             <div class="bg-white rounded-lg shadow-md p-5 border-l-4 border-blue-500">
                                 <div class="flex items-center justify-between mb-2">
                                     <h3 class="font-bold text-lg">專家團隊組成</h3>
-                                    <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full">53 篇文章 →</span>
+                                    <button onclick="openTimelineArticles('expert')" class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-200 transition">2 篇文章 →</button>
                                 </div>
                                 <p class="text-gray-700">內政部長劉世芳邀請前部長李鴻源組成專家團隊，評估堰塞湖風險。專家判斷爆破不可行，建議加強監測並準備疏散計畫。</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Timeline Item -->
-                    <div class="flex items-start">
+                    <!-- Expand All Button -->
+                    <div class="flex justify-center" id="timeline-expand-section">
+                        <button onclick="toggleTimeline()" id="timeline-toggle-btn" class="bg-purple-100 text-purple-700 px-6 py-2 rounded-full font-medium hover:bg-purple-200 transition flex items-center">
+                            <svg id="timeline-toggle-icon" class="w-5 h-5 mr-2 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                            <span id="timeline-toggle-text">展開全部</span>
+                        </button>
+                    </div>
+
+                    <!-- Timeline Item 3 (Hidden by default) -->
+                    <div class="flex items-start timeline-item timeline-item-hidden hidden">
                         <div class="flex-shrink-0">
                             <div class="w-24 h-16 bg-black text-white rounded-full flex flex-col items-center justify-center font-bold">
                                 <span class="text-xs">2025年</span>
-                                <span class="text-sm">9月23日</span>
+                                <span class="text-sm">9/23-26</span>
                             </div>
                         </div>
                         <div class="ml-6 flex-1">
                             <div class="bg-white rounded-lg shadow-md p-5 border-l-4 border-red-500">
                                 <div class="flex items-center justify-between mb-2">
-                                    <h3 class="font-bold text-lg">堰塞湖潰決</h3>
-                                    <span class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full">41 篇文章 →</span>
+                                    <h3 class="font-bold text-lg">堰塞湖潰決與災情</h3>
+                                    <button onclick="openTimelineArticles('collapse')" class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full hover:bg-red-200 transition">8 篇文章 →</button>
                                 </div>
-                                <p class="text-gray-700">受樺加沙颱風豪雨影響，堰塞湖發生兩度溢流並潰決。相當於6,000個奧運泳池的洪水沖向下游，馬太鞍溪橋遭沖毀，光復鄉市區大面積淹沒。</p>
+                                <p class="text-gray-700">受樺加沙颱風豪雨影響，堰塞湖發生兩度溢流並潰決。造成19人死亡、5人失蹤。相當於6,000個奧運泳池的洪水沖向下游，光復鄉市區大面積淹沒。縣長徐榛蔚首度公開致歉。</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Timeline Item -->
-                    <div class="flex items-start">
+                    <!-- Timeline Item 4 (Hidden by default) -->
+                    <div class="flex items-start timeline-item timeline-item-hidden hidden">
                         <div class="flex-shrink-0">
                             <div class="w-24 h-16 bg-black text-white rounded-full flex flex-col items-center justify-center font-bold">
                                 <span class="text-xs">2025年</span>
-                                <span class="text-sm">9月下旬</span>
-                            </div>
-                        </div>
-                        <div class="ml-6 flex-1">
-                            <div class="bg-white rounded-lg shadow-md p-5 border-l-4 border-orange-500">
-                                <div class="flex items-center justify-between mb-2">
-                                    <h3 class="font-bold text-lg">災情統計與救援</h3>
-                                    <span class="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full">33 篇文章 →</span>
-                                </div>
-                                <p class="text-gray-700">災害造成19人死亡、5人失蹤。花蓮縣長徐榛蔚首度公開致歉，承認「責無旁貸」。中央與地方展開救災行動，持續搜救失蹤人員。</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Timeline Item -->
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0">
-                            <div class="w-24 h-16 bg-black text-white rounded-full flex flex-col items-center justify-center font-bold">
-                                <span class="text-xs">2025年</span>
-                                <span class="text-sm">9月28日</span>
+                                <span class="text-sm">9/28-10初</span>
                             </div>
                         </div>
                         <div class="ml-6 flex-1">
                             <div class="bg-white rounded-lg shadow-md p-5 border-l-4 border-green-500">
                                 <div class="flex items-center justify-between mb-2">
-                                    <h3 class="font-bold text-lg">志工湧入協助</h3>
-                                    <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">33 篇文章 →</span>
+                                    <h3 class="font-bold text-lg">志工救災與重建預算</h3>
+                                    <button onclick="openTimelineArticles('volunteer')" class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full hover:bg-green-200 transition">4 篇文章 →</button>
                                 </div>
-                                <p class="text-gray-700">連假期間，全台「鏟子超人」志工湧入花蓮光復協助清淤。當地開發「救災資訊整合地圖」協助重建工作，展現台灣民間互助精神。</p>
+                                <p class="text-gray-700">全台「鏟子超人」志工湧入協助清淤。國民黨團推動200億元重建特別條例。李鴻源警告二次堰塞湖可能，呼籲志工不要貿然進入災區。「挖土機超人」不幸逝世。</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Timeline Item -->
-                    <div class="flex items-start">
+                    <!-- Timeline Item 5 (Hidden by default) -->
+                    <div class="flex items-start timeline-item timeline-item-hidden hidden">
                         <div class="flex-shrink-0">
                             <div class="w-24 h-16 bg-black text-white rounded-full flex flex-col items-center justify-center font-bold">
                                 <span class="text-xs">2025年</span>
-                                <span class="text-sm">10月初</span>
-                            </div>
-                        </div>
-                        <div class="ml-6 flex-1">
-                            <div class="bg-white rounded-lg shadow-md p-5 border-l-4 border-purple-500">
-                                <div class="flex items-center justify-between mb-2">
-                                    <h3 class="font-bold text-lg">重建預算與警示</h3>
-                                    <span class="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">33 篇文章 →</span>
-                                </div>
-                                <p class="text-gray-700">國民黨團推動200億元重建特別條例。李鴻源提出六大遷村建議，並警告可能發生二次堰塞湖。專家呼籲志工不要貿然進入災區。</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Timeline Item -->
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0">
-                            <div class="w-24 h-16 bg-black text-white rounded-full flex flex-col items-center justify-center font-bold">
-                                <span class="text-xs">2025年</span>
-                                <span class="text-sm">10月7日</span>
-                            </div>
-                        </div>
-                        <div class="ml-6 flex-1">
-                            <div class="bg-white rounded-lg shadow-md p-5 border-l-4 border-gray-500">
-                                <div class="flex items-center justify-between mb-2">
-                                    <h3 class="font-bold text-lg">志工不幸逝世</h3>
-                                    <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">33 篇文章 →</span>
-                                </div>
-                                <p class="text-gray-700">來自桃園的「挖土機超人」林鴻森在協助清淤8天後，因受傷感染不幸逝世。李鴻源再次強調「所以才早說不要來」，提醒災區風險遠超民眾想像。</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Timeline Item -->
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0">
-                            <div class="w-24 h-16 bg-black text-white rounded-full flex flex-col items-center justify-center font-bold">
-                                <span class="text-xs">2025年</span>
-                                <span class="text-sm">10月21日</span>
+                                <span class="text-sm">10/21-23</span>
                             </div>
                         </div>
                         <div class="ml-6 flex-1">
                             <div class="bg-white rounded-lg shadow-md p-5 border-l-4 border-yellow-500">
                                 <div class="flex items-center justify-between mb-2">
                                     <h3 class="font-bold text-lg">新堰塞湖形成</h3>
-                                    <span class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">33 篇文章 →</span>
+                                    <button onclick="openTimelineArticles('new-dam')" class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full hover:bg-yellow-200 transition">2 篇文章 →</button>
                                 </div>
-                                <p class="text-gray-700">馬太鞍溪上游再度出現新堰塞湖，當晚9點發生溢流，下游橋梁便道疑遭沖毀。林保署持續空中勘查，監測水位變化。</p>
+                                <p class="text-gray-700">馬太鞍溪上游再度出現新堰塞湖，當晚9點發生溢流。林保署持續空中勘查，監測水位變化。下游湖體幾乎消失。</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Timeline Item -->
-                    <div class="flex items-start">
+                    <!-- Timeline Item 6 -->
+                    <div class="flex items-start timeline-item">
                         <div class="flex-shrink-0">
                             <div class="w-24 h-16 bg-black text-white rounded-full flex flex-col items-center justify-center font-bold">
                                 <span class="text-xs">2025年</span>
-                                <span class="text-sm">11月中旬</span>
+                                <span class="text-sm">11/8-14</span>
                             </div>
                         </div>
                         <div class="ml-6 flex-1">
                             <div class="bg-white rounded-lg shadow-md p-5 border-l-4 border-red-500">
                                 <div class="flex items-center justify-between mb-2">
                                     <h3 class="font-bold text-lg">持續警戒監測</h3>
-                                    <span class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full">33 篇文章 →</span>
+                                    <button onclick="openTimelineArticles('monitoring')" class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full hover:bg-red-200 transition">2 篇文章 →</button>
                                 </div>
-                                <p class="text-gray-700">受鳳凰颱風影響，馬太鞍溪凌晨再現新堰塞湖，萬榮鄉明利村遭滅頂。光復鄉2,720戶進入紅色警戒。林保署評估新堰塞湖蓄水量約1,500萬噸，持續監測中。</p>
+                                <p class="text-gray-700">受鳳凰颱風影響，馬太鞍溪凌晨再現新堰塞湖，萬榮鄉明利村遭滅頂。光復鄉2,720戶進入紅色警戒。林保署評估新堰塞湖蓄水量約1,500萬噸，後降至20萬噸並解除紅色警戒。</p>
                             </div>
                         </div>
                     </div>
@@ -1162,6 +1105,33 @@
         </div>
     </div>
 
+    <!-- Timeline Articles Modal -->
+    <div id="timelineArticlesModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b">
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                    </svg>
+                    <h2 class="text-xl font-bold text-gray-800" id="timeline-articles-title">相關文章</h2>
+                </div>
+                <button onclick="closeTimelineArticlesModal()" class="text-gray-400 hover:text-gray-600 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="overflow-y-auto p-6" style="max-height: calc(90vh - 100px);">
+                <div id="timeline-articles-list" class="space-y-3">
+                    <!-- Will be filled by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8 mt-12">
         <div class="container mx-auto px-4 text-center">
@@ -1171,6 +1141,66 @@
     </footer>
 
     <script>
+        // Timeline Articles Data
+        const timelineArticlesData = {
+            formation: {
+                title: '堰塞湖形成',
+                date: '2025年7月中旬',
+                articles: [
+                    { title: '還原關鍵64天：崩塌量體比小林村大10倍的馬太鞍堰塞湖怎麼發現？', source: '少年報導者', date: '2025/10/07', url: 'https://today.line.me/tw/v3/article/RBV5o1z', image: 'https://today-obs.line-scdn.net/0hZuS7rbIFBVpuThvZnVh6DTIYBjVdIhZZCnhUbhBPHhU1d0dfGX0QbkkyXxQqAkFwCkMBXS0PHRUbFUNtNEgWaS5PEjolIx5eGVQDbC1HEDolLAR3DnJCQDs/w580' },
+                    { title: '馬太鞍溪堰塞湖釀災！全台仍有2處在監測中、1處已消失 衛星照曝光', source: '新頭殼', date: '2025/09/26', url: 'https://today.line.me/tw/v3/article/DRk9Kgp', image: null }
+                ]
+            },
+            expert: {
+                title: '專家團隊組成',
+                date: '2025年9月11日',
+                articles: [
+                    { title: '馬太鞍溪堰塞湖之災》兩周前劉世芳打電話向李鴻源請益', source: '信傳媒', date: '2025/09/24', url: 'https://today.line.me/tw/v3/article/PGNJOJV', image: null },
+                    { title: '光復鄉重創天災x人禍　究責甩鍋3／劉世芳2週前邀李鴻源組專家團', source: '鏡新聞', date: '2025/09/25', url: 'https://today.line.me/tw/v3/article/nXyrWMy', image: null }
+                ]
+            },
+            collapse: {
+                title: '堰塞湖潰決與災情',
+                date: '2025年9月23-26日',
+                articles: [
+                    { title: '【懶人包】馬太鞍溪堰塞湖如何形成　應變時間軸、專家回應一次看', source: '上報', date: '2025/09/25', url: 'https://today.line.me/tw/v3/article/1Dr70Q3', image: 'https://today-obs.line-scdn.net/0hFPIWO--7GX90LgfMgvtmKEx4FQ5HSAN2VkhUHQUqTk9dAlcgT0FKHAMuRlMKG1p-VEpRG1V6RE0OG10oTQ/w580' },
+                    { title: '花蓮馬太鞍溪堰塞湖溢流釀災：還原災害時間軸', source: '讀+ READr', date: '2025/09/26', url: 'https://today.line.me/tw/v3/article/9m7ex5r', image: null },
+                    { title: '馬太鞍溪堰塞湖之災》林保署：塞湖蓄水量剩15％', source: '信傳媒', date: '2025/09/25', url: 'https://today.line.me/tw/v3/article/0MmEpaL', image: null },
+                    { title: '傅崐萁稱「爆破就解決了」　監測團隊曝難處！', source: '鏡新聞', date: '2025/09/24', url: 'https://today.line.me/tw/v3/article/7NzWaZZ', image: null },
+                    { title: '圖輯》馬太鞍堰塞湖更多現場照曝！另支6人探勘隊歸來揭溢流口畫面', source: '自由電子報', date: '2025/10/09', url: 'https://today.line.me/tw/v3/article/JPwJ8yM', image: null },
+                    { title: '花蓮堰塞湖溢流釀災　李鴻源示警「未來災害」', source: '風傳媒', date: '2025/10/03', url: 'https://today.line.me/tw/v3/article/yzYkB7Q', image: null },
+                    { title: '挖土機超人不幸逝世　李鴻源嘆「所以才早說不要來」', source: '風傳媒', date: '2025/10/07', url: 'https://today.line.me/tw/v3/article/XYLKrV9', image: null },
+                    { title: '「鏟子超人」衝災區！　李鴻源曝「嚴重後果」勸：別去', source: '華視新聞', date: '2025/10/02', url: 'https://today.line.me/tw/v3/article/7Nz9qVn', image: 'https://today-obs.line-scdn.net/0hQLwAaxKgDmNKOBDZnOlxNHJuAhJ5XhRqaAkUVmkwWVtuFEtmJlZdAGloV083AE0walZDBms4V1c3AEg1fg/w580' }
+                ]
+            },
+            volunteer: {
+                title: '志工救災與重建預算',
+                date: '2025年9月28日-10月初',
+                articles: [
+                    { title: '國民黨團匡200億元花蓮重建預算　李鴻源示警二次堰塞湖', source: '信傳媒', date: '2025/10/03', url: 'https://today.line.me/tw/v3/article/Yav8Zxa', image: 'https://today-obs.line-scdn.net/0hsJj-qYelLGVXVDLdMwNTMm8CIBRkMjZsdTEwUCZUcFF7eD9mbDF_BnRdcEkpY2Njd2VnCnJUJVd9bGlhYg/w580' },
+                    { title: '全台「鏟子超人」湧入花蓮光復　志工分配站與救災地圖助攻重建', source: '新頭殼', date: '2025/09/28', url: 'https://today.line.me/tw/v3/article/oq7m51o', image: null },
+                    { title: '「挖土機超人」救災8天病逝！李鴻源再喊「這類人」別去', source: '民視新聞網', date: '2025/10/08', url: 'https://today.line.me/tw/v3/article/RBV5XmW', image: 'https://today-obs.line-scdn.net/0hic7LucbbNkwKNSjO3o1JGzJjOj05UyxFKFZ5Iy1naiwhGXIeN1VlL383OmB0DXhPKlp9eC1iOHx0DSZPMg/w580' },
+                    { title: '花蓮馬太鞍溪上游「2個堰塞湖」最新情形！', source: '新頭殼', date: '2025/10/23', url: 'https://today.line.me/tw/v3/article/YavDywN', image: null }
+                ]
+            },
+            'new-dam': {
+                title: '新堰塞湖形成',
+                date: '2025年10月21-23日',
+                articles: [
+                    { title: '花蓮馬太鞍溪再現新堰塞湖　今晚9點溢流、下游橋梁便道疑遭沖毀', source: '上報', date: '2025/10/21', url: 'https://today.line.me/tw/v3/article/wJMok5R', image: null },
+                    { title: '花蓮馬太鞍溪上游「2個堰塞湖」最新情形！', source: '新頭殼', date: '2025/10/23', url: 'https://today.line.me/tw/v3/article/YavDywN', image: null }
+                ]
+            },
+            monitoring: {
+                title: '持續警戒監測',
+                date: '2025年11月8-14日',
+                articles: [
+                    { title: '快逃！花蓮馬太鞍溪「凌晨再現新堰塞湖」　官方紅色警戒持續', source: '民視新聞網', date: '2025/11/13', url: 'https://today.line.me/tw/v3/article/gzrRE0g', image: null },
+                    { title: '回家囉！馬太鞍溪新堰塞湖水量剩20萬噸 解除紅色警戒', source: '太報', date: '2025/11/14', url: 'https://today.line.me/tw/v3/article/qoLO01k', image: 'https://today-obs.line-scdn.net/0hid2ojcwINksPFik7BR5JHDdAOjo8cCxCLSAtLnkXa3t1OiUUMXZlKC0eO2cqcyMfL3V_JCpFO3pxdSUUYA/w580' }
+                ]
+            }
+        };
+
         // Opinion Data
         const opinionData = {
             neutral: {
@@ -1424,6 +1454,75 @@
                 closeStakeholderModal();
                 closeMediaModal();
                 closeOpinionModal();
+                closeTimelineArticlesModal();
+            }
+        });
+
+        // Timeline Toggle Function
+        function toggleTimeline() {
+            const hiddenItems = document.querySelectorAll('.timeline-item-hidden');
+            const expandSection = document.getElementById('timeline-expand-section');
+
+            hiddenItems.forEach(item => {
+                item.classList.remove('hidden');
+            });
+
+            // Hide the expand button after expanding
+            expandSection.classList.add('hidden');
+        }
+
+        // Timeline Articles Modal Functions
+        function openTimelineArticles(timelineKey) {
+            const data = timelineArticlesData[timelineKey];
+            const modal = document.getElementById('timelineArticlesModal');
+
+            // Update title
+            document.getElementById('timeline-articles-title').textContent = `${data.title}（${data.date}）`;
+
+            // Generate articles HTML
+            const articlesHtml = data.articles.map(article => {
+                const imageHtml = article.image
+                    ? `<img src="${article.image}" alt="" class="w-full h-full object-cover">`
+                    : `<svg class="w-8 h-8 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                    </svg>`;
+
+                const imageWrapperClass = article.image
+                    ? 'bg-gray-200'
+                    : 'bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center';
+
+                return `
+                    <a href="${article.url}" target="_blank" class="block bg-white rounded-lg p-4 border hover:shadow-md transition">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <span class="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded mb-2">${article.source}</span>
+                                <h4 class="font-bold text-gray-800 mb-1">${article.title}</h4>
+                                <p class="text-xs text-gray-500">${article.date}</p>
+                            </div>
+                            <div class="w-24 h-16 ${imageWrapperClass} rounded ml-4 flex-shrink-0 overflow-hidden">
+                                ${imageHtml}
+                            </div>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+
+            document.getElementById('timeline-articles-list').innerHTML = articlesHtml;
+
+            // Show modal
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTimelineArticlesModal() {
+            document.getElementById('timelineArticlesModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Add timeline articles modal click outside to close
+        document.getElementById('timelineArticlesModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeTimelineArticlesModal();
             }
         });
     </script>
